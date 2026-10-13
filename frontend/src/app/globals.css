@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/* Thermal-paper world: a cool desk, a white receipt, one stamp colour.
+   Light only: the scene is a desk in daylight where figures get checked. */
+:root {
+  color-scheme: light;
+  --desk: #dde2da;
+  --paper: #fbfbf8;
+  --ink: #14161a;
+  --ink-muted: #4a4f57;
+  --rule: #b7bcc3;
+  --stamp: #c8322a;
+  --stamp-deep: #a62720;
+}
+
+@theme inline {
+  --color-desk: var(--desk);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-rule: var(--rule);
+  --color-stamp: var(--stamp);
+  --color-stamp-deep: var(--stamp-deep);
+  --font-sans: var(--font-display);
+  --font-mono: var(--font-figures);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--desk);
+  color: var(--ink);
+  font-family: var(--font-display), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--stamp);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* Receipt: perforated top and bottom edges, drawn as desk-coloured bites. */
+.receipt {
+  position: relative;
+  background: var(--paper);
+}
+
+.receipt::before,
+.receipt::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 8px;
+  pointer-events: none;
+  background-repeat: repeat-x;
+  background-size: 16px 8px;
+}
+
+.receipt::before {
+  top: 0;
+  background-image: radial-gradient(circle at 8px 0, var(--desk) 6px, transparent 6.5px);
+}
+
+.receipt::after {
+  bottom: 0;
+  background-image: radial-gradient(circle at 8px 8px, var(--desk) 6px, transparent 6.5px);
+}
+
+/* Each receipt line prints in order once the page is ready. */
+@keyframes print-line {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.print-line {
+  animation: print-line 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 110ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .print-line {
+    animation: none;
+  }
+}
+
+/* Print: the statement prints as a plain document without the desk or the app chrome. */
+@media print {
+  @page {
+    margin: 16mm;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  [data-no-print] {
+    display: none !important;
+  }
+
+  .receipt {
+    box-shadow: none;
+  }
+
+  .receipt::before,
+  .receipt::after {
+    display: none;
+  }
+}

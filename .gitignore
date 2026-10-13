@@ -1,0 +1,64 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Local AI/tool output
+.aider*
+.impeccable/
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.backend-check/
+
+# Local QA artifacts
+screenshots/
+supabase/.temp/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Lokaler Entwicklungs- und KI-Workflow
+.ai/
+.impeccable/
+.aider*
+AGENTS.md
+CLAUDE.md
+.claude/
+.cursor/
+.cursorrules
+.github/copilot-instructions.md
+docs/
+prompts/
+notes/
+CHEATSHEET.md
+DESIGN.md
+DESIGN.template.md
+PRODUCT.md
+PRODUCT.template.md
+*.md
+!/README.md
+
+# Lokale Konfiguration und Secrets
+.env
+.env.*
+*.pfx
+*.keystore
+Backend/appsettings.Development.json
+Backend/appsettings.Local.json
+
+# Lokale Sicherung der bisherigen Git-Historie
+.git-local-history*/
